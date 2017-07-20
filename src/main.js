@@ -99,6 +99,10 @@ export default class Typewriter {
       return;
     }
 
+    if (this.queue.find(entry => entry.el === el)) {
+      return;
+    }
+
     this.queue.push({
       el: el,
       text: el.nodeValue
