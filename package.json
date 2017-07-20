@@ -8,6 +8,11 @@
     "type": "git",
     "url": "git://github.com/furka/cool-typewriter.git"
   },
+  "keywords": [
+    "typewriter",
+    "typing",
+    "animation"
+  ],
   "author": "Thomas Vranckx",
   "license": "MIT"
 }
