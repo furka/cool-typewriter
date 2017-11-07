@@ -65,3 +65,24 @@ Pause the typewriter
 #### `.resume()`
 
 Resume typing after being paused
+
+## CSS classes
+Sometimes, you may want to style an element as it's being typed. Cool-typewriter provides two classes that you can use for this
+
+#### `cool-typewriter-typing`
+This class is added to an element as it's being typed and removed once it's done. You could use this to add a caret to simulate typing.
+
+```css
+.cool-typewriter-typing:after {
+  content: "|";
+}
+```
+
+#### `cool-typewriter-empty`
+This class is added to all elements as they are hidden and removed once an element is being typed. This may be useful to hide elements prior to typing.
+
+```css
+.cool-typewriter-empty {
+  display: hidden;
+}
+```

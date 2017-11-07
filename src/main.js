@@ -1,3 +1,6 @@
+const EMPTY_TYPING_CLASS = 'cool-typewriter-empty';
+const TYPING_CLASS = 'cool-typewriter-typing';
+
 export default class Typewriter {
   constructor () {
     this.queue = [];
@@ -53,13 +56,14 @@ export default class Typewriter {
   complete () {
     this.queue.forEach(focus => {
       focus.el.nodeValue += focus.text;
+      Typewriter.reveal(focus.el);
+      Typewriter.unsetTyping(focus.el);
     });
 
     this.stop();
 
     return this;
   }
-
 
   set started (val) {
     val = Boolean(val);
@@ -69,7 +73,11 @@ export default class Typewriter {
     }
 
     if (val === true && !this.started) {
-      this.queue.forEach(focus => focus.el.nodeValue = "");
+      this.queue.forEach(focus => {
+        focus.el.nodeValue = "";
+        Typewriter.hide(focus.el);
+      });
+
       this._type();
     }
 
@@ -123,9 +131,12 @@ export default class Typewriter {
     let char = focus.text.charAt(0);
 
     focus.el.nodeValue += char;
+    Typewriter.reveal(focus.el);
+    Typewriter.setTyping(focus.el);
     focus.text = focus.text.substring(1);
 
     if (focus.text.length === 0) {
+      Typewriter.unsetTyping(focus.el);
       this.queue.shift();
     }
 
@@ -134,5 +145,33 @@ export default class Typewriter {
     } else {
       requestAnimationFrame(() => this._type());
     }
+  }
+
+  //removes the typing class from an element and all its parents
+  static reveal (el) {
+    if (el.classList) {
+      el.classList.remove(EMPTY_TYPING_CLASS);
+    }
+
+    if (el.parentNode) {
+      Typewriter.reveal(el.parentNode);
+    }
+  }
+
+  //adds the typing class to an element or its parent if the element is a text node
+  static hide (el) {
+    if (el.classList) {
+      el.classList.add(EMPTY_TYPING_CLASS);
+    } else {
+      el.parentNode.classList.add(EMPTY_TYPING_CLASS);
+    }
+  }
+
+  static setTyping (el) {
+    el.parentNode.classList.add(TYPING_CLASS);
+  }
+
+  static unsetTyping (el) {
+    el.parentNode.classList.remove(TYPING_CLASS);
   }
 }
