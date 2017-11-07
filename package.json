@@ -1,6 +1,6 @@
 {
   "name": "cool-typewriter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simulates typewriter effect on any DOM structure",
   "main": "src/main.js",
   "scripts": {},
